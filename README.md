@@ -80,12 +80,12 @@ php aiti view:clear
 
 ### Laravel Mapping
 
-| Laravel | AitiCore Flex |
-| --- | --- |
-| `php artisan optimize:clear` | `php aiti optimize` |
-| `php artisan config:clear` | `php aiti config:clear` |
-| `php artisan route:clear` | `php aiti route:clear` |
-| `php artisan view:clear` | `php aiti view:clear` |
+| Laravel                      | AitiCore Flex           |
+| ---------------------------- | ----------------------- |
+| `php artisan optimize:clear` | `php aiti optimize`     |
+| `php artisan config:clear`   | `php aiti config:clear` |
+| `php artisan route:clear`    | `php aiti route:clear`  |
+| `php artisan view:clear`     | `php aiti view:clear`   |
 
 ## Maintenance
 
@@ -126,3 +126,12 @@ Coverage minimal awal:
 - router happy path
 - view escaping
 - csrf token + blocking request invalid
+
+### ☕ Beli Kopi
+
+Jika AitiCore membantu project Anda,
+pertimbangkan untuk mendukung pengembang:
+
+🔗 Saweria: https://saweria.co/USERNAME  
+🔗 BuyMeACoffee: https://buymeacoffee.com/USERNAME  
+📱 QRIS tersedia (Hubungi saya)
