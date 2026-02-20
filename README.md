@@ -1,6 +1,6 @@
 # AitiCore Flex
 
-**AitiCore – Lightweight & Secure PHP Framework**
+**AitiCore Flex - Lightweight & Secure PHP Framework**
 
 AitiCore Flex adalah framework PHP fullstack baseline keamanan modern: escape output default, CSRF middleware untuk route web, dan session hardening.
 
@@ -127,11 +127,22 @@ Coverage minimal awal:
 - view escaping
 - csrf token + blocking request invalid
 
-### ☕ Beli Kopi
+### Beli Kopi
 
-Jika AitiCore membantu project Anda,
+Jika AitiCore Flex membantu project Anda,
 pertimbangkan untuk mendukung pengembang:
 
-🔗 Saweria: https://saweria.co/USERNAME  
-🔗 BuyMeACoffee: https://buymeacoffee.com/USERNAME  
-📱 QRIS tersedia (Hubungi saya)
+- Saweria: https://saweria.co/USERNAME
+- BuyMeACoffee:
+- QRIS tersedia (Hubungi saya)
+
+## Donasi
+
+### Donasi & Beli Kopi
+
+Kalau AitiGo ngebantu kerjaanmu dan bikin hidup sedikit lebih waras,
+boleh traktir kopi biar maintainer kuat begadang.
+
+- [![Buy me a coffee](saweria)](https://saweria.co/aitisolutions)
+- [![Buy me a coffee](Buymeacoffee)](https://buymeacoffee.com/aitisolutions)
+- QRIS tersedia (Hubungi saya)

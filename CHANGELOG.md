@@ -1,4 +1,4 @@
-# CHANGELOG
+# AitiCore Flex Changelog
 
 ## v0.1.0 - 2026-02-20
 - Initial framework skeleton with CI-ish app structure.

@@ -1,7 +1,7 @@
 # AGENT.md - AitiCore Flex (STRICT)
 
 ## Motto
-AitiCore - CI simplicity, Laravel security.
+AitiCore Flex - CI simplicity, Laravel security.
 
 ## Golden Rules
 1. Secure by default: view escape ON, CSRF ON for web, DB binding only, hardened session cookie.
