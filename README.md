@@ -127,15 +127,6 @@ Coverage minimal awal:
 - view escaping
 - csrf token + blocking request invalid
 
-### Beli Kopi
-
-Jika AitiCore Flex membantu project Anda,
-pertimbangkan untuk mendukung pengembang:
-
-- Saweria: https://saweria.co/USERNAME
-- BuyMeACoffee:
-- QRIS tersedia (Hubungi saya)
-
 ## Donasi
 
 ### Donasi & Beli Kopi
