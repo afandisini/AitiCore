@@ -143,6 +143,6 @@ pertimbangkan untuk mendukung pengembang:
 Kalau AitiGo ngebantu kerjaanmu dan bikin hidup sedikit lebih waras,
 boleh traktir kopi biar maintainer kuat begadang.
 
-- [![Buy me a coffee](saweria)](https://saweria.co/aitisolutions)
-- [![Buy me a coffee](Buymeacoffee)](https://buymeacoffee.com/aitisolutions)
+- [☕(saweria)](https://saweria.co/aitisolutions)
+- [☕(Buymeacoffee)](https://buymeacoffee.com/aitisolutions)
 - QRIS tersedia (Hubungi saya)
