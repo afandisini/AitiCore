@@ -1,6 +1,6 @@
 # AitiCore Flex
 
-**AitiCore - CI simplicity, Laravel security**
+**AitiCore – Lightweight & Secure PHP Framework**
 
 AitiCore Flex adalah framework PHP fullstack baseline keamanan modern: escape output default, CSRF middleware untuk route web, dan session hardening.
 
