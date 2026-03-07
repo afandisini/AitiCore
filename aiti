@@ -11,6 +11,7 @@ $console->register(new System\Cli\Commands\ListCommand($console));
 $console->register(new System\Cli\Commands\ServeCommand());
 $console->register(new System\Cli\Commands\RouteListCommand());
 $console->register(new System\Cli\Commands\KeyGenerateCommand());
+$console->register(new System\Cli\Commands\MigrateCommand());
 $console->register(new System\Cli\Commands\PresetBootstrapCommand());
 $console->register(new System\Cli\Commands\ConfigClearCommand());
 $console->register(new System\Cli\Commands\RouteClearCommand());

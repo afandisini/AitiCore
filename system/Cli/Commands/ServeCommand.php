@@ -26,7 +26,7 @@ class ServeCommand extends Command
 
     public function handle(array $args, Application $app): int
     {
-        $host = '127.0.0.1';
+        $host = '0.0.0.0';
         $port = '8000';
 
         foreach ($args as $arg) {
@@ -39,7 +39,8 @@ class ServeCommand extends Command
             }
         }
 
-        $command = sprintf('php -S %s:%s -t public', $host, $port);
+        $router = $app->basePath('router.php');
+        $command = sprintf('php -S %s:%s %s', $host, $port, escapeshellarg($router));
         fwrite(STDOUT, 'Starting server on http://' . $host . ':' . $port . PHP_EOL);
         passthru($command, $code);
         return $code;

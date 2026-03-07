@@ -71,6 +71,8 @@ php aiti list
 php aiti serve
 php aiti route:list
 php aiti key:generate
+php aiti migrate update
+php aiti migrate drop
 php aiti preset:bootstrap
 php aiti optimize
 php aiti config:clear
@@ -86,6 +88,14 @@ php aiti view:clear
 | `php artisan config:clear`   | `php aiti config:clear` |
 | `php artisan route:clear`    | `php aiti route:clear`  |
 | `php artisan view:clear`     | `php aiti view:clear`   |
+| `php artisan migrate`        | `php aiti migrate update` |
+| `php artisan migrate:fresh`  | `php aiti migrate drop` |
+
+## Routing Notes
+
+- `php aiti serve` sekarang selalu menjalankan `router.php`, jadi semua request masuk ke router yang sama.
+- Request `HEAD` otomatis dipetakan ke route `GET`, tetapi body response tidak dikirim.
+- Static asset seperti `/storage/...` atau file lain di `public/` akan dilayani langsung oleh PHP built-in server.
 
 ## Maintenance
 

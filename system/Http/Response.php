@@ -48,6 +48,11 @@ class Response
         return $this->content;
     }
 
+    public function withoutBody(): self
+    {
+        return new self('', $this->statusCode, $this->headers);
+    }
+
     public function statusCode(): int
     {
         return $this->statusCode;

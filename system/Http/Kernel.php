@@ -22,10 +22,12 @@ class Kernel
 
     public function handle(Request $request): Response
     {
+        $headOnly = $request->method() === 'HEAD';
         $route = $this->app->router()->match($request);
 
         if ($route === null) {
-            return Response::html('Not Found', 404);
+            $response = $this->notFoundResponse();
+            return $headOnly ? $response->withoutBody() : $response;
         }
 
         $middlewares = array_merge(
@@ -43,7 +45,9 @@ class Kernel
             }
         );
 
-        return $this->normalizeResponse($result);
+        $response = $this->normalizeResponse($result);
+
+        return $headOnly ? $response->withoutBody() : $response;
     }
 
     private function dispatchToRoute(Request $request, Route $route): mixed
@@ -75,5 +79,14 @@ class Kernel
         }
 
         return Response::html((string) $result);
+    }
+
+    private function notFoundResponse(): Response
+    {
+        try {
+            return Response::html($this->app->view()->render('errors/404'), 404);
+        } catch (\RuntimeException) {
+            return Response::html('Not Found', 404);
+        }
     }
 }

@@ -54,8 +54,10 @@ class Router
 
     public function match(Request $request): ?Route
     {
+        $method = $request->method() === 'HEAD' ? 'GET' : $request->method();
+
         foreach ($this->routes->all() as $route) {
-            $params = $route->match($request->method(), $request->path());
+            $params = $route->match($method, $request->path());
             if ($params !== null) {
                 $this->currentParameters = $params;
                 return $route;
