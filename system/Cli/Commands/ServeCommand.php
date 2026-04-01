@@ -26,7 +26,7 @@ class ServeCommand extends Command
 
     public function handle(array $args, Application $app): int
     {
-        $host = '0.0.0.0';
+        $host = '127.0.0.1';
         $port = '8000';
 
         foreach ($args as $arg) {
