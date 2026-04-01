@@ -75,6 +75,8 @@ php aiti route:list
 php aiti route:cache
 php aiti route:clear
 php aiti key:generate
+php aiti upgrade:check
+php aiti upgrade:apply
 php aiti migrate update
 php aiti migrate drop
 php aiti migrate status
@@ -110,6 +112,42 @@ php aiti view:clear
 - `php aiti optimize` menjalankan clear berurutan untuk cache config, routes, dan views.
 - Command maintenance hanya menyentuh `storage/cache/*`.
 - Logs (`storage/logs`), sessions (`storage/sessions`), dan uploads (`storage/uploads`) tidak dihapus.
+
+## Safe Upgrade Policy
+
+### Core vs User Ownership
+
+- Framework core: `system/`, `bootstrap/`, `public/`, root tooling (`aiti`, `composer.json`, dll).
+- User app: `app/`, `routes/`, `database/`.
+- Updater **tidak boleh overwrite** path milik user.
+
+### SemVer Rules
+
+- `PATCH`: bugfix, no breaking change.
+- `MINOR`: fitur baru kompatibel ke belakang.
+- `MAJOR`: breaking change diperbolehkan dengan guide migrasi.
+- Setiap release wajib punya changelog + upgrade guide.
+
+### Upgrade Commands
+
+- `php aiti upgrade:check [--from=vX] [--target=vY]`
+  - read-only
+  - cek jalur upgrade
+  - scan konflik file
+  - tampilkan breaking/risk/deprecation list
+
+- `php aiti upgrade:apply [--from=vX] [--target=vY]`
+  - default `dry-run` (tidak ubah file)
+  - pakai `--apply` untuk eksekusi nyata
+  - simpan backup `*.bak.YmdHis` sebelum menyentuh file
+  - path user custom tetap di-skip
+
+### Upgrade Metadata
+
+- Catalog path: `upgrade-guides/index.php`
+- Guide per versi: `upgrade-guides/vX-to-vY.md`
+- Stub/patch template: `upgrade-guides/stubs/...`
+- Gunakan `strategy=replace` atau `strategy=marker_merge` untuk patch terkontrol.
 
 ## Bootstrap Preset (Local Assets)
 

@@ -9,10 +9,32 @@ AitiCore Flex - CI simplicity, Laravel security.
 3. Thin controllers: business logic in `app/Services`.
 4. Public CLI surface is stable: only `php aiti ...`.
 5. No breaking changes without changelog + migration guide + semver bump.
+6. Never overwrite user-owned app structure during framework upgrade.
 
 ## Structure Contract
 Keep these folders stable:
 `app/`, `routes/`, `bootstrap/`, `public/`, `storage/`, `system/`, `tests/`, root `aiti`.
+
+Ownership split:
+- Framework core (updater allowed): `system/`, `bootstrap/`, `public/`, root tooling files.
+- User-owned (updater forbidden): `app/`, `routes/`, `database/`.
+- If a framework update needs user-owned changes, emit actionable guide steps only (no auto-overwrite).
+
+## Upgrade Governance (STRICT)
+1. SemVer is mandatory:
+   - PATCH = no breaking.
+   - MINOR = backward-compatible additions.
+   - MAJOR = explicit breaking changes allowed.
+2. Every release must include:
+   - `CHANGELOG.md` update
+   - `upgrade-guides/index.php` track update
+   - per-track guide `upgrade-guides/vX-to-vY.md`
+3. `upgrade:check` must remain read-only.
+4. `upgrade:apply` must default to dry-run unless `--apply` is set.
+5. Before overwriting a file, create timestamped backup `*.bak.YmdHis`.
+6. If checksum mismatch on core file: skip by default and require `--force`.
+7. For merge-style changes prefer marker/AST merge over blind full-file replace.
+8. Deprecated behavior must survive at least one major cycle and show warning only in debug mode.
 
 ## Security Checklist
 - XSS: escaped output by default.
@@ -30,6 +52,8 @@ Must keep:
 - `php aiti route:list`
 - `php aiti key:generate`
 - `php aiti preset:bootstrap`
+- `php aiti upgrade:check`
+- `php aiti upgrade:apply`
 
 ## Definition of Done
 - App runs.

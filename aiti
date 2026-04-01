@@ -18,5 +18,7 @@ $console->register(new System\Cli\Commands\ConfigClearCommand());
 $console->register(new System\Cli\Commands\RouteClearCommand());
 $console->register(new System\Cli\Commands\ViewClearCommand());
 $console->register(new System\Cli\Commands\OptimizeCommand());
+$console->register(new System\Cli\Commands\UpgradeCheckCommand());
+$console->register(new System\Cli\Commands\UpgradeApplyCommand());
 
 exit($console->run($_SERVER['argv'] ?? []));
