@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use System\Http\Response;
+use App\Controllers\Api\PingController;
 
-$router->get('/api/ping', static fn () => Response::json(['status' => 'ok']));
+$router->get('/api/ping', [PingController::class, 'index']);

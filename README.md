@@ -72,13 +72,16 @@ php aiti --version
 php aiti list
 php aiti serve
 php aiti route:list
+php aiti route:cache
+php aiti route:clear
 php aiti key:generate
 php aiti migrate update
 php aiti migrate drop
+php aiti migrate status
+php aiti migrate rollback --step=1
 php aiti preset:bootstrap
 php aiti optimize
 php aiti config:clear
-php aiti route:clear
 php aiti view:clear
 ```
 
@@ -88,10 +91,13 @@ php aiti view:clear
 | ---------------------------- | ----------------------- |
 | `php artisan optimize:clear` | `php aiti optimize`     |
 | `php artisan config:clear`   | `php aiti config:clear` |
+| `php artisan route:cache`    | `php aiti route:cache`  |
 | `php artisan route:clear`    | `php aiti route:clear`  |
 | `php artisan view:clear`     | `php aiti view:clear`   |
 | `php artisan migrate`        | `php aiti migrate update` |
 | `php artisan migrate:fresh`  | `php aiti migrate drop` |
+| `php artisan migrate:status` | `php aiti migrate status` |
+| `php artisan migrate:rollback --step=1` | `php aiti migrate rollback --step=1` |
 
 ## Routing Notes
 

@@ -8,8 +8,6 @@ use System\Foundation\Application;
 
 class Console
 {
-    public const VERSION = '0.1.0';
-
     /**
      * @var array<string, Command>
      */
@@ -42,7 +40,7 @@ class Console
         $name = $input[0] ?? 'list';
 
         if (in_array($name, ['--version', '-V'], true)) {
-            fwrite(STDOUT, 'AitiCore Flex CLI v' . self::VERSION . PHP_EOL);
+            fwrite(STDOUT, 'AitiCore Flex CLI ' . self::version() . PHP_EOL);
             return 0;
         }
 
@@ -67,5 +65,16 @@ class Console
     {
         ksort($this->commands);
         return $this->commands;
+    }
+
+    public static function version(): string
+    {
+        $versionFile = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'VERSION';
+        if (!is_file($versionFile)) {
+            return 'v0.0.0';
+        }
+
+        $version = trim((string) file_get_contents($versionFile));
+        return $version !== '' ? $version : 'v0.0.0';
     }
 }

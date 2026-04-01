@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace System\Http;
 
-use Closure;
 use System\Foundation\Application;
 use System\Middleware\MiddlewarePipeline;
 use System\Routing\Route;
@@ -26,7 +25,10 @@ class Kernel
         $route = $this->app->router()->match($request);
 
         if ($route === null) {
-            $response = $this->notFoundResponse();
+            $allowed = $this->app->router()->allowedMethods($request->path());
+            $response = $allowed !== []
+                ? $this->methodNotAllowedResponse($allowed)
+                : $this->notFoundResponse();
             return $headOnly ? $response->withoutBody() : $response;
         }
 
@@ -36,7 +38,7 @@ class Kernel
             $route->middleware()
         );
 
-        $pipeline = new MiddlewarePipeline();
+        $pipeline = new MiddlewarePipeline($this->app);
         $result = $pipeline->process(
             $request,
             $middlewares,
@@ -54,15 +56,15 @@ class Kernel
     {
         $action = $route->action();
         $params = $this->app->router()->currentParameters();
+        $context = ['request' => $request] + $params;
 
         if (is_callable($action)) {
-            return $action($request, ...array_values($params));
+            return $this->app->call($action, $context);
         }
 
         if (is_array($action) && count($action) === 2) {
             [$class, $method] = $action;
-            $controller = $this->app->make($class);
-            return $controller->{$method}($request, ...array_values($params));
+            return $this->app->call([$class, $method], $context);
         }
 
         return Response::html('Invalid route handler', 500);
@@ -88,5 +90,15 @@ class Kernel
         } catch (\RuntimeException) {
             return Response::html('Not Found', 404);
         }
+    }
+
+    /**
+     * @param array<int, string> $allowedMethods
+     */
+    private function methodNotAllowedResponse(array $allowedMethods): Response
+    {
+        return Response::html('Method Not Allowed', 405, [
+            'Allow' => implode(', ', $allowedMethods),
+        ]);
     }
 }

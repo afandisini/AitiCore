@@ -16,17 +16,27 @@ class Response
     ) {
     }
 
-    public static function html(string $content, int $statusCode = 200): self
+    /**
+     * @param array<string, string> $headers
+     */
+    public static function html(string $content, int $statusCode = 200, array $headers = []): self
     {
-        return new self($content, $statusCode, ['Content-Type' => 'text/html; charset=UTF-8']);
+        return new self($content, $statusCode, array_merge(['Content-Type' => 'text/html; charset=UTF-8'], $headers));
     }
 
     /**
      * @param array<string, mixed> $data
      */
-    public static function json(array $data, int $statusCode = 200): self
+    /**
+     * @param array<string, string> $headers
+     */
+    public static function json(array $data, int $statusCode = 200, array $headers = []): self
     {
-        return new self((string) json_encode($data, JSON_UNESCAPED_UNICODE), $statusCode, ['Content-Type' => 'application/json']);
+        return new self(
+            (string) json_encode($data, JSON_UNESCAPED_UNICODE),
+            $statusCode,
+            array_merge(['Content-Type' => 'application/json'], $headers)
+        );
     }
 
     public static function redirect(string $location, int $statusCode = 302): self
@@ -56,5 +66,13 @@ class Response
     public function statusCode(): int
     {
         return $this->statusCode;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function headers(): array
+    {
+        return $this->headers;
     }
 }

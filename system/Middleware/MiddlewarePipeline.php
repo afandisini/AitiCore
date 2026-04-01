@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace System\Middleware;
 
-use Closure;
+use System\Foundation\Application;
 
 class MiddlewarePipeline
 {
+    public function __construct(private ?Application $app = null)
+    {
+    }
+
     /**
      * @param array<int, mixed> $middlewares
      * @param callable $destination
@@ -23,7 +27,7 @@ class MiddlewarePipeline
                     }
 
                     if (is_string($middleware) && class_exists($middleware)) {
-                        $instance = new $middleware();
+                        $instance = $this->app?->make($middleware) ?? new $middleware();
 
                         if (method_exists($instance, 'handle')) {
                             return $instance->handle($request, $next);

@@ -57,8 +57,7 @@ class Route
             return null;
         }
 
-        $pattern = preg_replace('#\{([^/]+)\}#', '(?P<$1>[^/]+)', $this->uri);
-        $pattern = '#^' . $pattern . '$#';
+        $pattern = $this->compilePattern();
 
         if (!is_string($pattern) || preg_match($pattern, $path, $matches) !== 1) {
             return null;
@@ -72,5 +71,21 @@ class Route
         }
 
         return $params;
+    }
+
+    public function matchesPath(string $path): bool
+    {
+        $pattern = $this->compilePattern();
+        return is_string($pattern) && preg_match($pattern, $path) === 1;
+    }
+
+    private function compilePattern(): ?string
+    {
+        $pattern = preg_replace('#\{([^/]+)\}#', '(?P<$1>[^/]+)', $this->uri);
+        if (!is_string($pattern)) {
+            return null;
+        }
+
+        return '#^' . $pattern . '$#';
     }
 }

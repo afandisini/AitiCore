@@ -10,6 +10,7 @@ $console = new System\Cli\Console($app);
 $console->register(new System\Cli\Commands\ListCommand($console));
 $console->register(new System\Cli\Commands\ServeCommand());
 $console->register(new System\Cli\Commands\RouteListCommand());
+$console->register(new System\Cli\Commands\RouteCacheCommand());
 $console->register(new System\Cli\Commands\KeyGenerateCommand());
 $console->register(new System\Cli\Commands\MigrateCommand());
 $console->register(new System\Cli\Commands\PresetBootstrapCommand());

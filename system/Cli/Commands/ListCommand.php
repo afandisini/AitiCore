@@ -26,7 +26,7 @@ class ListCommand extends Command
 
     public function handle(array $args, Application $app): int
     {
-        fwrite(STDOUT, 'AitiCore Flex CLI v' . Console::VERSION . PHP_EOL);
+        fwrite(STDOUT, 'AitiCore Flex CLI ' . Console::version() . PHP_EOL);
         fwrite(STDOUT, 'Available commands:' . PHP_EOL);
 
         foreach ($this->console->commands() as $name => $command) {

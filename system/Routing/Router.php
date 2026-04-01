@@ -83,4 +83,81 @@ class Router
     {
         return $this->routes->all();
     }
+
+    /**
+     * @return array<int, string>
+     */
+    public function allowedMethods(string $path): array
+    {
+        $allowed = [];
+        foreach ($this->routes->all() as $route) {
+            if (!$route->matchesPath($path)) {
+                continue;
+            }
+
+            $allowed[] = $route->method();
+        }
+
+        $allowed = array_values(array_unique($allowed));
+        if (in_array('GET', $allowed, true) && !in_array('HEAD', $allowed, true)) {
+            $allowed[] = 'HEAD';
+        }
+
+        sort($allowed);
+        return $allowed;
+    }
+
+    /**
+     * @return array{routes: array<int, array<string, mixed>>, uncacheable: array<int, string>}
+     */
+    public function exportCacheableRoutes(): array
+    {
+        $items = [];
+        $uncacheable = [];
+
+        foreach ($this->routes->all() as $route) {
+            $action = $route->action();
+            if (!is_array($action) || count($action) !== 2 || !is_string($action[0]) || !is_string($action[1])) {
+                $uncacheable[] = $route->method() . ' ' . $route->uri();
+                continue;
+            }
+
+            $items[] = [
+                'method' => $route->method(),
+                'uri' => $route->uri(),
+                'group' => $route->group(),
+                'middleware' => $route->middleware(),
+                'action' => [$action[0], $action[1]],
+            ];
+        }
+
+        return [
+            'routes' => $items,
+            'uncacheable' => $uncacheable,
+        ];
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $definitions
+     */
+    public function importCachedRoutes(array $definitions): void
+    {
+        $this->routes = new RouteCollection();
+        foreach ($definitions as $definition) {
+            $method = (string) ($definition['method'] ?? 'GET');
+            $uri = (string) ($definition['uri'] ?? '/');
+            $group = isset($definition['group']) && is_string($definition['group'])
+                ? $definition['group']
+                : null;
+            $middleware = isset($definition['middleware']) && is_array($definition['middleware'])
+                ? $definition['middleware']
+                : [];
+            $action = $definition['action'] ?? null;
+            if (!is_array($action) || count($action) !== 2 || !is_string($action[0]) || !is_string($action[1])) {
+                continue;
+            }
+
+            $this->routes->add(new Route($method, $uri, $action, $group, $middleware));
+        }
+    }
 }

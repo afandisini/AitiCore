@@ -1,6 +1,11 @@
 # AitiCore Flex Changelog
 
 ## Unreleased
+- Added dependency injection container capabilities (`bind`, `singleton`, `instance`, auto constructor resolution) and callable resolver for controller/route invocation.
+- Added `405 Method Not Allowed` responses with `Allow` header support.
+- Added `php aiti route:cache` and bootstrap route cache loading from `storage/cache/routes.php`.
+- Expanded migrate command with migration history table and new actions: `status` and `rollback --step=N`.
+- Synced CLI version output to read from `VERSION`.
 
 ## v0.2.0 - 2026-04-01
 - Added built-in `router.php` so `php aiti serve` always routes dynamic requests consistently and lets static files bypass the app.
